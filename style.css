@@ -195,7 +195,10 @@ a:focus-visible {
 .project-section:last-child { margin-bottom: 0; }
 
 .work-title {
-  font-size: var(--size-heading);
+  /* 왼쪽 사이드바 이름(.logo-static)과 정확히 같은 높이에서 시작하도록
+     같은 font-size 변수(--nav-size)를 사용 — --size-heading(18px)을 쓰면
+     line-height 계산값이 달라져서 제목이 미세하게 아래로 밀려 보임 */
+  font-size: var(--nav-size);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.01em;
