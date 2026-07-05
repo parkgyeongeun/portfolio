@@ -4,6 +4,8 @@
    - HOME의 Works 클릭 → WORKS 화면(소개+프로젝트)으로 전환
    - WORKS 화면의 이름 클릭 → 다시 HOME 화면으로
    - 각 프로젝트의 이미지 슬라이더 (화살표 클릭 · 드래그/스와이프 · 호버 자동 재생)
+   - 커스텀 커서 (마우스 있는 데스크톱 전용) — [data-cursor-text] 요소 위에서
+     커진 원 안에 텍스트가 나타남
    자동으로 동작하며, 별도로 수정할 필요는 없습니다.
 ============================================================= */
 
@@ -116,3 +118,106 @@ document.querySelectorAll('[data-slider]').forEach((slider) => {
 
   update();
 });
+
+// ── 4. 커스텀 커서 (마우스 있는 데스크톱 전용) ──
+const cursorEl = document.getElementById('cursor');
+
+if (cursorEl && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const cursorTextEl = cursorEl.querySelector('.cursor__text');
+  let mouseX = 0, mouseY = 0;
+  let curX = 0, curY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorEl.classList.add('is-visible');
+  });
+  document.addEventListener('mouseleave', () => cursorEl.classList.remove('is-visible'));
+
+  // 살짝 뒤따라오는 느낌을 주기 위해 매 프레임 목표 위치로 조금씩 다가감
+  (function follow() {
+    curX += (mouseX - curX) * 0.2;
+    curY += (mouseY - curY) * 0.2;
+    cursorEl.style.transform = `translate(${curX}px, ${curY}px)`;
+    requestAnimationFrame(follow);
+  })();
+
+  document.querySelectorAll('[data-cursor-text]').forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursorEl.classList.add('is-active');
+      cursorTextEl.textContent = el.dataset.cursorText;
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorEl.classList.remove('is-active');
+      cursorTextEl.textContent = '';
+    });
+  });
+}
+
+// ── 5. 스티커 (드래그 가능한 장식 위젯, cyl.kr 참고) ──
+document.querySelectorAll('[data-sticker]').forEach((sticker) => {
+  // 랜덤 초기 위치 (화면 안쪽에 들어오도록 여백을 둠)
+  const w = sticker.offsetWidth || 120;
+  const h = sticker.offsetHeight || 120;
+  const padding = 20;
+  const maxX = window.innerWidth - w - padding;
+  const maxY = window.innerHeight - h - padding;
+  sticker.style.left = Math.max(padding, Math.floor(Math.random() * maxX)) + 'px';
+  sticker.style.top = Math.max(padding, Math.floor(Math.random() * maxY)) + 'px';
+
+  const closeBtn = sticker.querySelector('.sticker-x');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sticker.style.display = 'none';
+    });
+  }
+
+  let dragging = false, offsetX = 0, offsetY = 0;
+
+  sticker.addEventListener('mousedown', (e) => {
+    if (e.target.closest('.sticker-x')) return;
+    dragging = true;
+    offsetX = e.clientX - sticker.offsetLeft;
+    offsetY = e.clientY - sticker.offsetTop;
+    sticker.classList.add('dragging');
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    sticker.style.left = e.clientX - offsetX + 'px';
+    sticker.style.top = e.clientY - offsetY + 'px';
+  });
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    sticker.classList.remove('dragging');
+  });
+
+  sticker.addEventListener('touchstart', (e) => {
+    if (e.target.closest('.sticker-x')) return;
+    const t = e.touches[0];
+    dragging = true;
+    offsetX = t.clientX - sticker.offsetLeft;
+    offsetY = t.clientY - sticker.offsetTop;
+  }, { passive: true });
+  sticker.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    const t = e.touches[0];
+    sticker.style.left = t.clientX - offsetX + 'px';
+    sticker.style.top = t.clientY - offsetY + 'px';
+  }, { passive: true });
+  sticker.addEventListener('touchend', () => { dragging = false; });
+});
+
+// 스티커 시계 — 1초마다 갱신
+const stickerClockEl = document.getElementById('stickerClock');
+if (stickerClockEl) {
+  function updateStickerClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    stickerClockEl.textContent = `${hh}:${mm}:${ss}`;
+  }
+  updateStickerClock();
+  setInterval(updateStickerClock, 1000);
+}

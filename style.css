@@ -284,6 +284,20 @@ a:focus-visible {
 
 .work-desc + .work-desc { margin-top: 0.6em; }
 
+/* 국문(왼쪽)/영문(오른쪽) 2단 — builder.js의 renderDesc()가 두 언어가 섞인
+   설명일 때만 이 구조로 만들어냅니다. */
+.work-desc-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.work-desc-columns .work-desc { max-width: none; }
+
+@media (max-width: 760px) {
+  .work-desc-columns { grid-template-columns: 1fr; gap: 0; }
+  .work-desc-columns .work-desc-col + .work-desc-col { margin-top: 1em; }
+}
+
 /* About 필드의 마크다운(#, ##)을 표시할 때 사용 — Builder에서 생성됨 */
 .about-h1 {
   font-family: var(--font-desc);
@@ -299,6 +313,121 @@ a:focus-visible {
   letter-spacing: 0.05em;
   color: var(--color-muted);
   margin: 14px 0 6px;
+}
+
+/* ============================================================
+   스티커 — cyl.kr 참고. 드래그로 움직이고 X로 닫을 수 있는 장식 위젯.
+============================================================= */
+.sticker {
+  position: fixed;
+  z-index: 500;
+  cursor: grab;
+}
+.sticker.dragging { cursor: grabbing; }
+
+.multi-frame {
+  border: 1px solid #000;
+  padding: 3px;
+  background: #f5f5f5;
+  box-sizing: border-box;
+}
+.multi-frame.outer { position: relative; }
+
+.sticker-x {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #000;
+  z-index: 2;
+}
+.sticker-x svg { width: 100%; height: 100%; display: block; }
+.sticker-x polyline { fill: none; stroke: currentColor; stroke-width: 1; }
+
+.sticker-abc {
+  background: var(--yellow);
+  padding: 16px 20px;
+  font-family: var(--font-base);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  color: #111;
+  white-space: nowrap;
+}
+
+.sticker-clock {
+  background: #fff;
+  padding: 10px 16px;
+  font-family: var(--font-base);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sticker-doodle { cursor: grab; }
+.sticker-doodle svg { display: block; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .sticker { display: none; } /* 모바일에서는 화면을 가리니 숨김 */
+}
+
+/* ============================================================
+   커스텀 커서 — play.studio 참고. 마우스 있는 데스크톱에서만 적용되고,
+   터치 기기에서는 원래 동작 그대로입니다 (아래 미디어쿼리로 범위 한정).
+   [data-cursor-text] 요소에 올리면 원이 커지면서 그 텍스트가 보입니다.
+============================================================= */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button { cursor: none; }
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .cursor.is-visible { opacity: 1; }
+
+  .cursor__inner {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--color-text);
+    transform: translate(-50%, -50%);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cursor.is-active .cursor__inner {
+    width: 70px;
+    height: 70px;
+    background: var(--yellow);
+  }
+
+  .cursor__text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .cursor.is-active .cursor__text { opacity: 1; transition-delay: 0.1s; }
 }
 
 /* ============================================================

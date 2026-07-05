@@ -27,7 +27,7 @@
 
     <div class="home-col home-center">
       <!-- 클릭하면 아래 WORKS 화면으로 전환됩니다. -->
-      <button class="works-toggle" type="button" id="works-toggle-home">Works</button>
+      <button class="works-toggle" type="button" id="works-toggle-home" data-cursor-text="Enter">Works</button>
     </div>
 
     <div class="home-col home-right">
@@ -56,7 +56,7 @@
        이름을 클릭하면 다시 HOME 화면으로 돌아갑니다.
   ============================================================= -->
   <aside class="sidebar">
-    <button class="logo-static" type="button" id="logo-back">GYEONGEUN PARK</button>
+    <button class="logo-static" type="button" id="logo-back" data-cursor-text="Home">GYEONGEUN PARK</button>
 
     <p class="tagline">
       still working on design:<br>
@@ -84,21 +84,16 @@
   ============================================================= -->
   <main class="main">
     <!-- BUILDER:PROJECTS:START -->
-                                                                                                                                                                                                                                <section class="project-section" data-builder-id="p1783223763528">
+                                                                                                                                                                                                                                                            <section class="project-section" data-builder-id="p1783223763528">
       <h3 class="work-title">KAKAOBANK CALENDAR</h3>
 
       <div class="work-slider" data-slider>
         <div class="slider-track">
-          <img src="assets/kakaobank-calendar-1.jpg" alt="KAKAOBANK CALENDAR 이미지 1" loading="lazy">
-          <img src="assets/kakaobank-calendar-3.jpg" alt="KAKAOBANK CALENDAR 이미지 2" loading="lazy">
-          <img src="assets/kakaobank-calendar-5.jpg" alt="KAKAOBANK CALENDAR 이미지 3" loading="lazy">
-          <img src="assets/kakaobank-calendar-4.jpg" alt="KAKAOBANK CALENDAR 이미지 4" loading="lazy">
-          <img src="assets/kakaobank-calendar-2.jpg" alt="KAKAOBANK CALENDAR 이미지 5" loading="lazy">
-          <img src="assets/kakaobank-calendar-6.jpg" alt="KAKAOBANK CALENDAR 이미지 6" loading="lazy">
+
         </div>
         <button class="slider-btn prev" type="button" aria-label="이전 이미지">&lt;</button>
         <button class="slider-btn next" type="button" aria-label="다음 이미지">&gt;</button>
-        <div class="slider-count"><span class="cur">1</span> / <span class="total">6</span></div>
+        <div class="slider-count"><span class="cur">1</span> / <span class="total">0</span></div>
       </div>
 
       <div class="meta-list">
@@ -111,10 +106,10 @@
       <p class="work-desc" style="font-weight:600;">일상의 순간들을 공유하는 카카오뱅크의 메시지를 담은 2024년 캘린더 디자인</p><p class="work-desc">카카오뱅크 캘린더는 구성원들에게 브랜드의 긍정적인 에너지와 결속력을은유적으로 전달하는 디자인 컨셉을 목표로 진행했으며, 컨셉을 ‘선물’로 정의하여 받는 사람에게 집중하는 구성과 디자인을 진행한 프로젝트 금융의 맥락의 확장으로 저금통을 의미하는 심볼 B를 다양한 사물을 품은 숫자로 변환하여 “일상의 순간을 공유하는 카카오뱅크”의 아이덴티티를 도출했습니다.</p><p class="work-desc">The KakaoBank Calendar project set out to metaphorically convey the brand's positive energy and sense of unity to its members, defining the concept as a "gift" and shaping the composition and design around the recipient's experience. Extending the context of finance, the symbol B—representing a piggy bank—was transformed into numerals holding various everyday objects, drawing out the identity of "KakaoBank, sharing everyday moments."</p>
     </section>
 
-    <section class="project-section" data-builder-id="p1783232702089">
+            <section class="project-section" data-builder-id="p1783232702089">
       <h3 class="work-title"></h3>
 
-      <div class="work-slider" data-slider>
+      <div class="work-slider" data-slider data-cursor-text="View">
         <div class="slider-track">
 
         </div>
@@ -133,6 +128,74 @@
     <!-- BUILDER:PROJECTS:END -->
   </main>
 
+</div>
+
+<!-- ============================================================
+     커스텀 커서 — 마우스가 있는 데스크톱에서만 기본 커서 대신 표시됩니다.
+     [data-cursor-text] 속성이 있는 요소에 마우스를 올리면 커진 원 안에
+     그 텍스트가 나타납니다 (script.js에서 처리).
+============================================================= -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor__inner">
+    <p class="cursor__text"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     스티커 — cyl.kr 참고. 드래그로 움직이고 X로 닫을 수 있는 장식 위젯.
+     데스크톱 전용 (모바일에서는 style.css에서 숨김).
+============================================================= -->
+<div class="sticker" data-sticker>
+  <div class="multi-frame outer">
+    <button class="sticker-x" type="button" aria-label="닫기">
+      <svg width="11" height="11" viewBox="0 0 11 11"><polyline points="0,0 11,11"></polyline><polyline points="11,0 0,11"></polyline></svg>
+    </button>
+    <div class="multi-frame">
+      <div class="multi-frame">
+        <div class="multi-frame sticker-abc">
+          <div class="sticker-abc-row">A B C D E F G H I J</div>
+          <div class="sticker-abc-row">K L M N O P Q R S</div>
+          <div class="sticker-abc-row">T U V W X Y Z</div>
+          <div class="sticker-abc-row">1 2 3 4 5 6 7 8 9 0</div>
+          <div class="sticker-abc-row">! ? &quot; § $ % &amp; / ( ) =</div>
+          <div class="sticker-abc-row">+ - , . : ' * #</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sticker" data-sticker>
+  <div class="multi-frame outer">
+    <button class="sticker-x" type="button" aria-label="닫기">
+      <svg width="11" height="11" viewBox="0 0 11 11"><polyline points="0,0 11,11"></polyline><polyline points="11,0 0,11"></polyline></svg>
+    </button>
+    <div class="multi-frame">
+      <div class="multi-frame">
+        <div class="multi-frame sticker-clock" id="stickerClock">00:00:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 색연필 느낌 손그림 원 — SVG 필터(feTurbulence + feDisplacementMap)로 거친 질감을 주고,
+     seed를 계속 바꿔서 손이 살짝 떨리는 듯한 모션을 줍니다. -->
+<div class="sticker sticker-doodle" data-sticker aria-hidden="true">
+  <svg width="170" height="90" viewBox="0 0 170 90">
+    <defs>
+      <filter id="pencilTexture" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.03 0.07" numOctaves="2" seed="3" result="noise">
+          <animate attributeName="seed" values="1;3;2;4;1" dur="3s" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+    <g filter="url(#pencilTexture)" fill="none" stroke="#e8541e" stroke-linecap="round" transform="rotate(-3 85 45)">
+      <ellipse cx="85" cy="45" rx="72" ry="37" stroke-width="3.5" opacity="0.9"/>
+      <ellipse cx="85" cy="45" rx="70" ry="35.5" stroke-width="2" opacity="0.5"/>
+      <ellipse cx="85" cy="45" rx="74" ry="38.5" stroke-width="1.4" opacity="0.3"/>
+    </g>
+  </svg>
 </div>
 
 <script src="script.js"></script>
