@@ -188,20 +188,9 @@
 
 <!-- 색연필 느낌 손그림 원 — SVG 필터(feTurbulence + feDisplacementMap)로 거친 질감만 정적으로
      줍니다 (계속 움직이는 애니메이션은 커서/스크롤을 느리게 만들어서 제거함). -->
+<!-- 손그림 원 — 실제로 그려지는 gif 애니메이션 (검정) -->
 <div class="sticker sticker-doodle" data-sticker aria-hidden="true">
-  <svg width="110" height="110" viewBox="0 0 110 110">
-    <defs>
-      <filter id="pencilTexture" x="-30%" y="-30%" width="160%" height="160%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.03 0.07" numOctaves="2" seed="3" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-    <g filter="url(#pencilTexture)" fill="none" stroke="#e8541e" stroke-linecap="round" transform="rotate(-3 55 55)">
-      <circle cx="55" cy="55" r="42" stroke-width="3.5" opacity="0.9"/>
-      <circle cx="55" cy="55" r="40.5" stroke-width="2" opacity="0.5"/>
-      <circle cx="55" cy="55" r="44" stroke-width="1.4" opacity="0.3"/>
-    </g>
-  </svg>
+  <img class="doodle-img" src="assets/doodle-circle.gif" alt="" draggable="false">
 </div>
 
 <script src="script.js"></script>

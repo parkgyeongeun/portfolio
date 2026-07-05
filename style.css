@@ -383,8 +383,19 @@ a:focus-visible {
   white-space: nowrap;
 }
 
-.sticker-doodle { cursor: grab; }
-.sticker-doodle svg { display: block; pointer-events: none; }
+.sticker-doodle {
+  cursor: grab;
+  width: 220px;
+}
+
+.doodle-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(0); /* 원본 주황색 gif를 검정으로 */
+  pointer-events: none;
+}
+
 
 .sticker-gif {
   display: block;
