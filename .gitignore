@@ -6,3 +6,4 @@ builder.css
 builder.js
 generate-server.js
 .vercel
+.server.log
