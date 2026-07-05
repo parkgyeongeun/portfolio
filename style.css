@@ -349,7 +349,8 @@ a:focus-visible {
 .sticker-x svg { width: 100%; height: 100%; display: block; }
 .sticker-x polyline { fill: none; stroke: currentColor; stroke-width: 1; }
 
-/* 세로형 달력 — 1~12월을 세로로 나열하고, 현재 달(is-current)에 점 표시 */
+/* 세로형 달력 — 1~12월을 같은 높이로 세로 나열하고, 현재 달(is-current)만
+   검정 배경 + 흰 글씨로 반전시켜 표시 */
 .sticker-calendar {
   display: flex;
   flex-direction: column;
@@ -357,28 +358,20 @@ a:focus-visible {
 }
 
 .cal-cell {
-  position: relative;
-  width: 34px;
-  padding: 3px 0;
-  text-align: center;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-base);
-  font-size: 15px;
+  font-size: 14px;
   color: #111;
 }
 
 .cal-cell.is-current {
-  font-weight: 700;
-}
-.cal-cell.is-current::after {
-  content: "";
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
   background: #111;
+  color: #fff;
+  font-weight: 700;
 }
 
 .sticker-clock {
@@ -405,58 +398,6 @@ a:focus-visible {
   .sticker { display: none; } /* 모바일에서는 화면을 가리니 숨김 */
 }
 
-/* ============================================================
-   커스텀 커서 — play.studio 참고. 마우스 있는 데스크톱에서만 적용되고,
-   터치 기기에서는 원래 동작 그대로입니다 (아래 미디어쿼리로 범위 한정).
-   [data-cursor-text] 요소에 올리면 원이 커지면서 그 텍스트가 보입니다.
-============================================================= */
-@media (hover: hover) and (pointer: fine) {
-  body, a, button { cursor: none; }
-
-  .cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .cursor.is-visible { opacity: 1; }
-
-  .cursor__inner {
-    width: 12px;
-    height: 12px;
-    border-radius: 999px;
-    background: var(--color-text);
-    transform: translate(-50%, -50%);
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                background 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .cursor.is-active .cursor__inner {
-    width: 70px;
-    height: 70px;
-    background: var(--yellow);
-  }
-
-  .cursor__text {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--color-text);
-    text-align: center;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-  .cursor.is-active .cursor__text { opacity: 1; transition-delay: 0.1s; }
-}
 
 /* ============================================================
    RESPONSIVE — 모바일: 2단을 위아래로 쌓기

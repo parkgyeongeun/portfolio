@@ -4,8 +4,7 @@
    - HOME의 Works 클릭 → WORKS 화면(소개+프로젝트)으로 전환
    - WORKS 화면의 이름 클릭 → 다시 HOME 화면으로
    - 각 프로젝트의 이미지 슬라이더 (화살표 클릭 · 드래그/스와이프 · 호버 자동 재생)
-   - 커스텀 커서 (마우스 있는 데스크톱 전용) — [data-cursor-text] 요소 위에서
-     커진 원 안에 텍스트가 나타남
+   - 스티커 (드래그 가능한 장식 위젯)
    자동으로 동작하며, 별도로 수정할 필요는 없습니다.
 ============================================================= */
 
@@ -119,42 +118,7 @@ document.querySelectorAll('[data-slider]').forEach((slider) => {
   update();
 });
 
-// ── 4. 커스텀 커서 (마우스 있는 데스크톱 전용) ──
-const cursorEl = document.getElementById('cursor');
-
-if (cursorEl && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  const cursorTextEl = cursorEl.querySelector('.cursor__text');
-  let mouseX = 0, mouseY = 0;
-  let curX = 0, curY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursorEl.classList.add('is-visible');
-  });
-  document.addEventListener('mouseleave', () => cursorEl.classList.remove('is-visible'));
-
-  // 살짝 뒤따라오는 느낌을 주기 위해 매 프레임 목표 위치로 조금씩 다가감
-  (function follow() {
-    curX += (mouseX - curX) * 0.2;
-    curY += (mouseY - curY) * 0.2;
-    cursorEl.style.transform = `translate(${curX}px, ${curY}px)`;
-    requestAnimationFrame(follow);
-  })();
-
-  document.querySelectorAll('[data-cursor-text]').forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      cursorEl.classList.add('is-active');
-      cursorTextEl.textContent = el.dataset.cursorText;
-    });
-    el.addEventListener('mouseleave', () => {
-      cursorEl.classList.remove('is-active');
-      cursorTextEl.textContent = '';
-    });
-  });
-}
-
-// ── 5. 스티커 (드래그 가능한 장식 위젯, cyl.kr 참고) ──
+// ── 4. 스티커 (드래그 가능한 장식 위젯, cyl.kr 참고) ──
 document.querySelectorAll('[data-sticker]').forEach((sticker) => {
   // 랜덤 초기 위치 (화면 안쪽에 들어오도록 여백을 둠)
   const w = sticker.offsetWidth || 120;
