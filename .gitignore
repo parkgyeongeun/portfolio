@@ -1,0 +1,7 @@
+.DS_Store
+
+# 로컬 편집 도구 — 공개 사이트에는 배포하지 않음
+builder.html
+builder.css
+builder.js
+generate-server.js
