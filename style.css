@@ -349,31 +349,37 @@ a:focus-visible {
 .sticker-x svg { width: 100%; height: 100%; display: block; }
 .sticker-x polyline { fill: none; stroke: currentColor; stroke-width: 1; }
 
-.sticker-sudoku {
-  display: grid;
-  grid-template-columns: repeat(9, 22px);
-  grid-template-rows: repeat(9, 22px);
-  background: #fff;
-  border: 2px solid #111;
+/* 세로형 달력 — 1~12월을 세로로 나열하고, 현재 달(is-current)에 점 표시 */
+.sticker-calendar {
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
 }
 
-.sudoku-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.cal-cell {
+  position: relative;
+  width: 34px;
+  padding: 3px 0;
+  text-align: center;
   font-family: var(--font-base);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 15px;
   color: #111;
-  border-right: 0.5px solid #bbb;
-  border-bottom: 0.5px solid #bbb;
-  box-sizing: border-box;
 }
-.sudoku-cell:nth-child(9n) { border-right: none; }
-.sudoku-cell:nth-child(n+73) { border-bottom: none; }
-.sudoku-cell:nth-child(9n+3), .sudoku-cell:nth-child(9n+6) { border-right: 1.5px solid #111; }
-.sudoku-cell:nth-child(n+19):nth-child(-n+27),
-.sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 1.5px solid #111; }
+
+.cal-cell.is-current {
+  font-weight: 700;
+}
+.cal-cell.is-current::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #111;
+}
 
 .sticker-clock {
   background: #fff;
@@ -386,6 +392,14 @@ a:focus-visible {
 
 .sticker-doodle { cursor: grab; }
 .sticker-doodle svg { display: block; pointer-events: none; }
+
+.sticker-gif {
+  display: block;
+  width: 90px;
+  height: auto;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
 
 @media (max-width: 760px) {
   .sticker { display: none; } /* 모바일에서는 화면을 가리니 숨김 */
