@@ -172,16 +172,3 @@ document.querySelectorAll('[data-sticker]').forEach((sticker) => {
   sticker.addEventListener('touchend', () => { dragging = false; });
 });
 
-// 스티커 시계 — 1초마다 갱신
-const stickerClockEl = document.getElementById('stickerClock');
-if (stickerClockEl) {
-  function updateStickerClock() {
-    const now = new Date();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const mm = String(now.getMinutes()).padStart(2, '0');
-    const ss = String(now.getSeconds()).padStart(2, '0');
-    stickerClockEl.textContent = `${hh}:${mm}:${ss}`;
-  }
-  updateStickerClock();
-  setInterval(updateStickerClock, 1000);
-}

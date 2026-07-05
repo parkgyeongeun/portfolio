@@ -374,15 +374,6 @@ a:focus-visible {
   font-weight: 700;
 }
 
-.sticker-clock {
-  background: #fff;
-  padding: 10px 16px;
-  font-family: var(--font-base);
-  font-size: 15px;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
 .sticker-doodle { cursor: grab; }
 .sticker-doodle svg { display: block; pointer-events: none; }
 
